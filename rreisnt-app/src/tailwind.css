@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles for RREISNT High Performance */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-bg-900 text-white-000 font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-600;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-accent-600/20 text-white-000;
+  }
+
+  /* Focus styles */
+  *:focus {
+    outline: 2px solid theme('colors.accent-600');
+    outline-offset: 2px;
+  }
+
+  /* Remove focus for mouse users */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Input autofill */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px theme('colors.bg-800') inset;
+    -webkit-text-fill-color: theme('colors.white-000');
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+@layer components {
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-surface backdrop-blur-md border border-border shadow-glass;
+  }
+
+  .glass-hover {
+    @apply hover:bg-surface-hover hover:border-border-hover hover:shadow-glass-hover transition-all duration-300;
+  }
+
+  /* Card styles */
+  .card {
+    @apply glass rounded-2xl p-6 shadow-card;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover hover:scale-[1.02] transition-all duration-300;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gradient-accent text-white-000 font-semibold py-3 px-6 rounded-xl shadow-accent-glow hover:shadow-accent-glow transform hover:scale-105 transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-surface text-white-000 font-semibold py-3 px-6 rounded-xl border border-border hover:bg-surface-hover hover:border-border-hover transition-all duration-200;
+  }
+
+  /* Input styles */
+  .input-primary {
+    @apply bg-surface border border-border rounded-xl px-4 py-3 text-white-000 placeholder-muted-400 focus:ring-2 focus:ring-accent-600 focus:border-accent-600 transition-all duration-200;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-accent bg-clip-text text-transparent;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    @apply animate-fade-in;
+  }
+
+  .animate-slide-up {
+    @apply animate-slide-up;
+  }
+
+  .animate-float {
+    @apply animate-float;
+  }
+
+  /* Typography */
+  .text-display {
+    @apply font-display font-bold tracking-tight;
+  }
+
+  .text-heading {
+    @apply font-display font-bold tracking-tight text-white-000;
+  }
+
+  .text-body {
+    @apply text-white-000 leading-relaxed;
+  }
+
+  .text-muted {
+    @apply text-muted-400;
+  }
+
+  /* Layout utilities */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+}
+
+@layer utilities {
+  /* Safe area for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom gradients */
+  .bg-gradient-dark-to-accent {
+    background: linear-gradient(135deg, theme('colors.bg-900') 0%, theme('colors.bg-800') 50%, theme('colors.accent-800') 100%);
+  }
+
+  .bg-gradient-surface {
+    background: linear-gradient(135deg, theme('colors.surface') 0%, theme('colors.surface') 100%);
+  }
+}
