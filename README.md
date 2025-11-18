@@ -1,18 +1,18 @@
-# 🏋️‍♂️ PROJETO: JANEIRO NO SHAPE (RREISNT)
+# 🏋️‍♂️ rreisnt workout
 
-![Project Banner](https://via.placeholder.com/800x200/1a1a2e/ffffff?text=JANEIRO+NO+SHAPE)
+![Project Banner](https://via.placeholder.com/800x200/1a1a2e/ffffff?text=rreisnt+workout)
 
-> **Projeto Pessoal:** Um app web moderno e estilizado para rastrear treinos de academia, focado no meu plano de Janeiro para recuperar o ritmo, explosão muscular e definição. Desenvolvido com paixão para transformar minha rotina de futsal e fitness.
+> **Projeto Pessoal:** Um app web moderno e estilizado para rastrear treinos de academia, focado em PPL completo com progressão. Desenvolvido com paixão para transformar rotinas de fitness.
 
 ## 🚀 Sobre o Projeto
 
-Este é um aplicativo web pessoal criado para acompanhar meu plano de treinos de Janeiro. O objetivo é sair do "no shape" (descondicionado) e voltar ao ritmo de futsal, com foco em explosão muscular, perda de gordura e definição. O app é totalmente offline, salvo no navegador, e tem uma interface dark theme moderna e responsiva.
+Este é um aplicativo web pessoal criado para acompanhar meu plano de treinos PPL (Push, Pull, Legs) com progressão controlada em 4 semanas. O objetivo é construir força, explosão muscular e definição, com extras para futsal. O app é totalmente offline, salvo no navegador, e tem uma interface dark theme moderna e responsiva.
 
 ### 🎯 Metas do Projeto
-- **Recuperar Ritmo de Futsal:** Treinos que simulam o jogo (intervalados, agilidade).
-- **Explosão Muscular:** Foco em força e potência para chutes e movimentos explosivos.
-- **Definição e Perda de Gordura:** Redução de açúcar/álcool, prioridade em proteínas e gorduras boas.
-- **Prazo:** Janeiro (férias) – 4 semanas intensas.
+- **PPL Completo:** Treinos estruturados em Push (peito/tríceps), Pull (costas/bíceps) e Legs (pernas).
+- **Progressão Controlada:** 4 semanas com cargas crescentes, foco em técnica na primeira semana.
+- **Explosão Muscular + Futsal:** Extras de agilidade para melhorar performance no campo.
+- **Prazo:** 4 semanas intensas.
 
 ## ✨ Funcionalidades
 
@@ -50,9 +50,6 @@ Este é um aplicativo web pessoal criado para acompanhar meu plano de treinos de
 - **Reset:** Restaura os dados iniciais.
 - **Editar:** Clique no botão para editar treinos.
 
-## 📸 Screenshots
-
-*(Adicione screenshots reais no repositório)*
 
 - **Tela Principal:** Seletor de dias com tema dark e gradientes.
 - **Treino do Dia:** Lista de exercícios com checkboxes e progresso.
@@ -82,7 +79,7 @@ Este projeto é pessoal e não tem licença formal – use como quiser, mas dê 
 
 **Ryan Antonio dos Reis de Oliveira (RREISNT)**  
 - **GitHub:** [rreis-nt](https://github.com/rreis-nt)
-- **LinkedIn:** [Seu LinkedIn aqui]
+- **LinkedIn:** [Ryan Antonio](https://www.linkedin.com/in/ryanreisoliveira/)
 - **Motivação:** Apaixonado por futsal e fitness. Este app é parte da minha jornada para voltar ao shape e ajudar outros a se motivarem.
 
 ---
