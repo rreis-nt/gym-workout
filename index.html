@@ -8,20 +8,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white min-h-screen font-sans">
+<body class="min-h-screen">
   <div class="max-w-7xl mx-auto p-4 sm:p-6">
     <!-- Topbar -->
     <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-6 bg-black/20 backdrop-blur-md rounded-xl shadow-2xl p-4 mb-6 border border-white/10">
       <div class="mb-4 sm:mb-0">
-        <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">CONTROLE DE TREINO</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white">CONTROLE DE TREINO</h1>
         <p class="text-sm text-gray-300 mt-1"><i class="fas fa-user mr-2"></i>Atleta: <strong>RYAN ANTONIO DOS REIS DE OLIVEIRA</strong></p>
       </div>
       <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
         <button id="exportBtn" class="flex items-center gap-2 px-4 py-2 btn-gradient text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200" aria-label="Exportar JSON">
           <i class="fas fa-download"></i> Exportar (.json)
         </button>
-        <label class="relative inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border-2 border-white/20 cursor-pointer hover:bg-white/20 hover:border-cyan-400 transition-all duration-200">
-          <i class="fas fa-upload mr-2 text-cyan-400"></i>
+        <label class="relative inline-flex items-center px-4 py-2 bg-white/10 rounded-lg border-2 border-white cursor-pointer hover:bg-white/20 transition-all duration-200">
+          <i class="fas fa-upload mr-2 text-white"></i>
           <span class="text-sm">Importar (.json)</span>
           <input id="importFile" type="file" accept="application/json" class="sr-only" aria-label="Importar arquivo JSON" />
         </label>
@@ -32,8 +32,8 @@
     </header>
 
     <!-- Day Selector -->
-    <div class="mb-6 bg-black/20 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/10">
-      <h2 class="text-xl font-bold mb-4 text-center">Selecione o Dia do Treino</h2>
+    <div class="mb-6 rounded-xl p-4 shadow-2xl border border-white">
+      <h2 class="text-xl font-bold mb-4 text-center text-white">Selecione o Dia do Treino</h2>
       <div class="flex flex-wrap justify-center gap-2" id="daySelector">
         <!-- Days will be populated by JS -->
       </div>
@@ -43,7 +43,7 @@
     <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Left: Today's Workout -->
       <section class="lg:col-span-2">
-        <div id="todayWorkout" class="bg-black/20 backdrop-blur-md rounded-xl shadow-2xl p-6 border border-white/10">
+        <div id="todayWorkout" class="rounded-xl shadow-2xl p-6 border border-white">
           <!-- Today's workout will be populated by JS -->
         </div>
 
@@ -68,21 +68,21 @@
 
       <!-- Right: Daily items & metadata -->
       <aside class="space-y-6">
-        <div class="bg-black/20 backdrop-blur-md p-6 rounded-xl shadow-2xl border border-white/10">
-          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-clipboard-list mr-2 text-cyan-400"></i>Checklist Diário</h3>
+        <div class="p-6 rounded-xl shadow-2xl border border-white">
+          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-clipboard-list mr-2 text-white"></i>Checklist Diário</h3>
           <div id="dailyItems" class="space-y-3 text-sm text-gray-300"></div>
         </div>
 
-        <div class="bg-black/20 backdrop-blur-md p-6 rounded-xl shadow-2xl border border-white/10">
-          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-project-diagram mr-2 text-cyan-400"></i>Dados do Projeto</h3>
+        <div class="p-6 rounded-xl shadow-2xl border border-white">
+          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-project-diagram mr-2 text-white"></i>Dados do Projeto</h3>
           <p class="text-sm text-gray-300 mb-2"><strong>Meta:</strong> PPL Completo com Progressão (4 Semanas).</p>
           <p class="text-sm text-gray-300 mb-4"><strong>Prazo:</strong> 4 Semanas</p>
           <p class="text-xs text-gray-400"><i class="fas fa-clock mr-1"></i>Última modificação: <span id="lastModified">--</span></p>
         </div>
 
         <!-- Rest Timer -->
-        <div class="bg-black/20 backdrop-blur-md p-6 rounded-xl shadow-2xl border border-white/10">
-          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-stopwatch mr-2 text-cyan-400"></i>Cronômetro de Descanso</h3>
+        <div class="p-6 rounded-xl shadow-2xl border border-white">
+          <h3 class="font-semibold text-lg text-white mb-4"><i class="fas fa-stopwatch mr-2 text-white"></i>Cronômetro de Descanso</h3>
           <div class="text-center">
             <div id="timerDisplay" class="text-5xl font-mono font-bold text-white mb-4 timer-glow">00:00</div>
             <div class="flex gap-2 justify-center">
@@ -139,21 +139,21 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-12 py-6 bg-black/20 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 text-center">
+    <footer class="mt-12 py-6 rounded-xl shadow-2xl border border-white text-center">
       <p class="text-gray-300 text-sm">
-        <i class="fas fa-dumbbell mr-2 text-cyan-400"></i>
+        <i class="fas fa-dumbbell mr-2 text-white"></i>
         rreisnt workout - Desenvolvido com paixão para transformar rotinas de fitness.
         <br>
         <span class="text-xs text-gray-400">© 2025 Ryan Antonio dos Reis de Oliveira. Todos os direitos reservados.</span>
       </p>
       <div class="mt-4 flex justify-center gap-4">
-        <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+        <a href="#" class="text-white hover:text-red-500 transition-colors">
           <i class="fab fa-github fa-lg"></i>
         </a>
-        <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+        <a href="#" class="text-white hover:text-red-500 transition-colors">
           <i class="fab fa-linkedin fa-lg"></i>
         </a>
-        <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+        <a href="#" class="text-white hover:text-red-500 transition-colors">
           <i class="fas fa-envelope fa-lg"></i>
         </a>
       </div>

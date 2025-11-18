@@ -1,32 +1,146 @@
-/* Pequenos ajustes além do Tailwind */
-.card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+/* High-Contrast Theme Styles - Black, White, Red */
+
+/* Base Styles */
+body {
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Header */
+header {
+  background-color: #1C1C1C;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Footer */
+footer {
+  background-color: #1C1C1C;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Cards and Containers */
+.workout-card, .bg-black\/20 {
+  background-color: #1C1C1C;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.card-shadow { box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
 .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card-hover:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-.gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.btn-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.btn-gradient:hover { background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%); }
+.card-hover:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(255,255,255,0.15); }
+
+/* Buttons */
+.btn-gradient, .bg-green-600, .bg-yellow-500, .bg-gray-800, .bg-red-500 {
+  background-color: #D70000;
+  color: #FFFFFF;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover, .bg-green-600:hover, .bg-yellow-500:hover, .bg-gray-800:hover, .bg-red-500:hover {
+  background-color: #B00000;
+}
+
+/* Day Buttons */
+.day-btn {
+  background-color: #1C1C1C;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.day-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.5); }
+.day-btn.active { background-color: #D70000; color: #FFFFFF; box-shadow: 0 0 20px rgba(215,0,0,0.8); }
+
+/* Progress Bar */
+.progress-bar {
+  background-color: #1C1C1C;
+}
+
+.progress-fill {
+  background-color: #D70000;
+}
+
+/* Checkboxes */
+.checkbox {
+  border: 1px solid #FFFFFF;
+}
+
+.checkbox:checked {
+  background-color: #D70000;
+  border-color: #D70000;
+}
+
+/* Text and Links */
+.text-gray-300, .text-gray-400, .text-cyan-400 {
+  color: #FFFFFF;
+}
+
+.text-cyan-400:hover {
+  color: #D70000;
+}
+
+/* Inputs */
+.input-focus:focus {
+  box-shadow: 0 0 0 3px rgba(215,0,0,0.3);
+}
+
+input, textarea {
+  background-color: #1C1C1C;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+}
+
+/* Modal */
+.modal-bg {
+  background-color: #0A0A0A;
+}
+
+#editModal {
+  background-color: #1C1C1C;
+  border: 1px solid #FFFFFF;
+}
+
+/* Toast */
+#toast {
+  background-color: #1C1C1C;
+  color: #FFFFFF;
+  border: 1px solid #D70000;
+}
+
+/* Timer */
+.timer-glow {
+  text-shadow: 0 0 10px rgba(215,0,0,0.5);
+}
+
+/* Exercise Items */
+.exercise-item {
+  transition: all 0.2s ease;
+}
+
+.exercise-item:hover {
+  background-color: rgba(255,255,255,0.1);
+  padding-left: 1rem;
+}
+
+.exercise-done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Animations */
 .toast-enter { opacity: 0; transform: translateY(10px); animation: toastIn 0.3s ease forwards; }
 @keyframes toastIn { to { opacity: 1; transform: translateY(0); } }
-.modal-bg { backdrop-filter: blur(4px); }
-.input-focus:focus { box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.3); }
-.exercise-done { text-decoration: line-through; opacity: 0.6; }
+
 .timer-beep { animation: beep 0.5s ease-in-out; }
 @keyframes beep { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.timer-glow { text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); }
-.day-btn { transition: all 0.3s ease; }
-.day-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(34, 211, 238, 0.5); }
-.day-btn.active { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; box-shadow: 0 0 20px rgba(34, 211, 238, 0.8); }
-.workout-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-.workout-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-5px); }
-.exercise-item { transition: all 0.2s ease; }
-.exercise-item:hover { background: rgba(34, 211, 238, 0.1); padding-left: 1rem; }
-
-/* Enhanced styles for better aesthetics */
-body { animation: fadeIn 1s ease-in; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-header { animation: slideDown 0.5s ease-out; }
-@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-footer { animation: slideUp 0.5s ease-out; }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.workout-card { animation: fadeInUp 0.6s ease-out; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
