@@ -1,0 +1,179 @@
+<!--
+Arquivo: janeiro_no_shape_rreisnt.html
+Como usar (resumido):
+ - Exportar: clica em "Exportar (.json)" para baixar o arquivo com o estado atual. Nome: janeiro_no_shape_YYYYMMDD_HHMMSS.json
+ - Importar: clica em "Importar (.json)" e selecione um arquivo gerado por este app. O app valida o arquivo antes de sobrescrever.
+ - Auto-save: todas as alterações são salvas automaticamente no localStorage (chave: "janeiro_no_shape_state"). Use "Restaurar último auto-save" para carregar o que estava no browser.
+ - Reset: restaura os dados iniciais fornecidos.
+
+Este arquivo usa Tailwind via CDN (https://cdn.tailwindcss.com) para ficar bonito sem build step.
+Adicionado Font Awesome para ícones.
+-->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PROJETO: JANEIRO NO SHAPE (RREISNT)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Pequenos ajustes além do Tailwind */
+    .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .btn-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .btn-gradient:hover { background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%); }
+    .toast-enter { opacity: 0; transform: translateY(10px); animation: toastIn 0.3s ease forwards; }
+    @keyframes toastIn { to { opacity: 1; transform: translateY(0); } }
+    .modal-bg { backdrop-filter: blur(4px); }
+    .input-focus:focus { box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+    .workout-card { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #0f3460; color: white; }
+    .exercise-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .day-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; transition: all 0.3s ease; }
+    .day-btn.active { background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%); transform: scale(1.05); }
+    .timer-beep { animation: beep 0.5s ease; }
+    @keyframes beep { 0% { background-color: #ff0000; } 100% { background-color: #667eea; } }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900 min-h-screen font-sans">
+  <div class="max-w-7xl mx-auto p-4 sm:p-6">
+    <!-- Topbar -->
+    <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-6 bg-white rounded-xl shadow-lg p-4 mb-6">
+      <div class="mb-4 sm:mb-0">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800">PROJETO: JANEIRO NO SHAPE <span class="text-indigo-600">(RREISNT)</span></h1>
+        <p class="text-sm text-gray-600 mt-1"><i class="fas fa-user mr-2"></i>Atleta: <strong>RYAN ANTONIO DOS REIS DE OLIVEIRA</strong></p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+        <button id="exportBtn" class="flex items-center gap-2 px-4 py-2 btn-gradient text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200" aria-label="Exportar JSON">
+          <i class="fas fa-download"></i> Exportar (.json)
+        </button>
+        <label class="relative inline-flex items-center px-4 py-2 bg-white rounded-lg border-2 border-gray-200 cursor-pointer hover:bg-gray-50 hover:border-indigo-300 transition-all duration-200">
+          <i class="fas fa-upload mr-2 text-indigo-600"></i>
+          <span class="text-sm">Importar (.json)</span>
+          <input id="importFile" type="file" accept="application/json" class="sr-only" aria-label="Importar arquivo JSON" />
+        </label>
+        <button id="resetBtn" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-md hover:shadow-lg transition-all duration-200" aria-label="Resetar para valores iniciais">
+          <i class="fas fa-undo"></i> Reset
+        </button>
+      </div>
+    </header>
+
+    <!-- Main layout -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left: Day selector and today's workout -->
+      <section class="lg:col-span-2">
+        <!-- Day selector -->
+        <div class="bg-white p-6 rounded-xl card-shadow card-hover mb-6">
+          <h3 class="font-semibold text-lg text-gray-800 mb-4"><i class="fas fa-calendar-day mr-2 text-indigo-600"></i>Selecione o Dia</h3>
+          <div id="daySelector" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Today's workout -->
+        <div id="todayWorkout" class="bg-white p-6 rounded-xl card-shadow card-hover mb-6"></div>
+
+        <!-- Weekly overview -->
+        <div class="bg-white p-6 rounded-xl card-shadow card-hover mb-6">
+          <h3 class="font-semibold text-lg text-gray-800 mb-4"><i class="fas fa-chart-line mr-2 text-indigo-600"></i>Visão Semanal</h3>
+          <div id="weeklyCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-6 flex flex-wrap gap-3 items-center">
+          <button id="saveLocalBtn" class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-md hover:shadow-lg transition-all duration-200" aria-label="Salvar localmente">
+            <i class="fas fa-save"></i> Salvar local
+          </button>
+          <button id="restoreBtn" class="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 shadow-md hover:shadow-lg transition-all duration-200" aria-label="Restaurar último auto-save">
+            <i class="fas fa-history"></i> Restaurar último auto-save
+          </button>
+          <button id="editModeBtn" class="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 shadow-md hover:shadow-lg transition-all duration-200" aria-label="Ativar modo edição">
+            <i class="fas fa-edit"></i> Editar
+          </button>
+        </div>
+
+        <!-- Timer -->
+        <div class="mt-6 bg-white p-6 rounded-xl card-shadow card-hover">
+          <h3 class="font-semibold text-lg text-gray-800 mb-4"><i class="fas fa-clock mr-2 text-indigo-600"></i>Cronômetro de Descanso</h3>
+          <div class="flex items-center gap-4">
+            <div id="timerDisplay" class="text-4xl font-mono font-bold text-indigo-600">01:00</div>
+            <div class="flex gap-2">
+              <button id="startTimer" class="px-4 py-2 btn-gradient text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                <i class="fas fa-play mr-1"></i>Iniciar
+              </button>
+              <button id="pauseTimer" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 shadow-md hover:shadow-lg transition-all duration-200 hidden">
+                <i class="fas fa-pause mr-1"></i>Pausar
+              </button>
+              <button id="resetTimer" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 shadow-md hover:shadow-lg transition-all duration-200">
+                <i class="fas fa-undo mr-1"></i>Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Daily items & metadata -->
+      <aside class="space-y-6">
+        <div class="bg-white p-6 rounded-xl card-shadow card-hover">
+          <h3 class="font-semibold text-lg text-gray-800 mb-4"><i class="fas fa-clipboard-list mr-2 text-indigo-600"></i>Checklist Diário</h3>
+          <div id="dailyItems" class="space-y-3 text-sm text-gray-700"></div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl card-shadow card-hover">
+          <h3 class="font-semibold text-lg text-gray-800 mb-4"><i class="fas fa-project-diagram mr-2 text-indigo-600"></i>Dados do Projeto</h3>
+          <p class="text-sm text-gray-700 mb-2"><strong>Meta:</strong> Recuperar Ritmo, Explosão e Definição Muscular.</p>
+          <p class="text-sm text-gray-700 mb-4"><strong>Prazo:</strong> Janeiro (Férias)</p>
+          <p class="text-xs text-gray-500"><i class="fas fa-clock mr-1"></i>Última modificação: <span id="lastModified">--</span></p>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Edit modal (hidden) -->
+    <div id="editModal" class="fixed inset-0 modal-bg bg-black/50 flex items-center justify-center p-4 hidden z-50">
+      <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-2xl">
+        <h3 class="font-bold text-xl text-gray-800 mb-4"><i class="fas fa-edit mr-2 text-indigo-600"></i>Editar Dia</h3>
+        <form id="editForm" class="space-y-4">
+          <input type="hidden" id="editIndex" />
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Dia</label>
+            <input id="editDay" class="w-full border border-gray-300 rounded-lg p-3 input-focus" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Horário</label>
+            <input id="editTime" class="w-full border border-gray-300 rounded-lg p-3 input-focus" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Foco</label>
+            <input id="editFocus" class="w-full border border-gray-300 rounded-lg p-3 input-focus" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Exercícios (separe por ; )</label>
+            <input id="editExercises" class="w-full border border-gray-300 rounded-lg p-3 input-focus" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Sets/Reps</label>
+            <input id="editSets" class="w-full border border-gray-300 rounded-lg p-3 input-focus" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Notas</label>
+            <textarea id="editNotes" class="w-full border border-gray-300 rounded-lg p-3 input-focus" rows="4"></textarea>
+          </div>
+          <div class="flex gap-3 justify-end pt-4">
+            <button type="button" id="closeEdit" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200">Cancelar</button>
+            <button type="submit" class="px-6 py-2 btn-gradient text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl toast-enter hidden z-50">
+      <i class="fas fa-info-circle mr-2"></i><span id="toastMsg"></span>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
